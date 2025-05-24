@@ -27,15 +27,16 @@ public class GestionClienteController {
     @GetMapping
     public ResponseEntity<List<Cliente>> listarClientes() {
         List<Cliente> clientes = clienteService.listarClientes();
-        return ResponseEntity.ok(clientes); // Devuelve una lista vacía si no hay clientes
+        // 200 OK: Siempre devuelve 200, aunque la lista esté vacía
+        return ResponseEntity.ok(clientes);
     }
 
     // Obtener cliente por ID
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Integer id) {
         return clienteService.buscarCliente(id)
-                .map(ResponseEntity::ok) // Si el cliente está presente, devuelve 200 OK con el cliente
-                .orElse(ResponseEntity.notFound().build()); // Si no está presente, devuelve 404 Not Found
+                .map(ResponseEntity::ok) // 200 OK: Si el cliente existe, lo devuelve
+                .orElse(ResponseEntity.notFound().build()); // 404 Not Found: Si no existe, devuelve 404
     }
 
     // Agregar nuevo cliente
@@ -43,8 +44,10 @@ public class GestionClienteController {
     public ResponseEntity<String> agregarCliente(@RequestBody Cliente clienteNuevo) {
         try {
             String resultado = clienteService.agregarCliente(clienteNuevo);
+            // 200 OK: Si se agrega correctamente, devuelve 200 con mensaje
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
+            // 500 Internal Server Error: Si ocurre un error, devuelve 500 con mensaje de error
             return ResponseEntity.status(500).body("Error al agregar el cliente: " + e.getMessage());
         }
     }
@@ -54,8 +57,10 @@ public class GestionClienteController {
     public ResponseEntity<String> actualizarCliente(@PathVariable int id, @RequestBody Cliente clienteActualizado) {
         String resultado = clienteService.actualizarCliente(id, clienteActualizado);
         if (resultado.equals("Cliente no encontrado")) {
+            // 404 Not Found: Si el cliente no existe, devuelve 404
             return ResponseEntity.notFound().build();
         }
+        // 200 OK: Si se actualiza correctamente, devuelve 200 con mensaje
         return ResponseEntity.ok(resultado);
     }
 
@@ -64,8 +69,10 @@ public class GestionClienteController {
     public ResponseEntity<String> eliminarCliente(@PathVariable int id) {
         String resultado = clienteService.eliminarCliente(id);
         if (resultado.equals("Cliente no encontrado")) {
+            // 404 Not Found: Si el cliente no existe, devuelve 404
             return ResponseEntity.notFound().build();
         }
+        // 200 OK: Si se elimina correctamente, devuelve 200 con mensaje
         return ResponseEntity.ok(resultado);
     }
 }
