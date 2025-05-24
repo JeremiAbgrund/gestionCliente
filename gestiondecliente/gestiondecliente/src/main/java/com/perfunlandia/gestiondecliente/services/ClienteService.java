@@ -34,7 +34,11 @@ public class ClienteService {
             clienteRepository.save(clienteNuevo);
             return "Cliente agregado exitosamente";
         } catch (DataIntegrityViolationException e) {
-            return "El correo ya está registrado";
+            Throwable rootCause = e.getRootCause();
+            if (rootCause != null && rootCause.getMessage() != null && rootCause.getMessage().contains("Duplicate")) {
+                return "El correo ya está registrado";
+            }
+            return "Error al agregar cliente: " + e.getMessage();
         }
     }
 
