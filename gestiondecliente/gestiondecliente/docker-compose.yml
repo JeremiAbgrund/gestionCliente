@@ -4,8 +4,8 @@ services:
     image: mysql:8
     container_name: mysql-gestioncliente
     environment:
-      MYSQL_ROOT_PASSWORD: Gestion2025.
-      MYSQL_DATABASE: gestioncliente
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
