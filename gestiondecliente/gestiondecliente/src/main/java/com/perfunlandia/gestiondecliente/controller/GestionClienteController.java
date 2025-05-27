@@ -35,7 +35,7 @@ public class GestionClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Integer id) {
         return clienteService.buscarCliente(id)
-                .map(ResponseEntity::ok) // 200 OK: Si el cliente existe, lo devuelve
+                .map(ResponseEntity::ok) // 200 OK: Si el cliente existe, lo devuelve(como optional)
                 .orElse(ResponseEntity.notFound().build()); // 404 Not Found: Si no existe, devuelve 404
     }
 
