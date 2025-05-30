@@ -30,7 +30,7 @@ public class Cliente {
     private String nombre;
 
     @Column(nullable = false, length = 50) // la column no puede ser nula teniendo como tamanio maximo 50 caracteres
-    @NotNull //
+    @NotNull 
     @Size(min = 2, max = 50)
     private String apellido_paterno;
 
