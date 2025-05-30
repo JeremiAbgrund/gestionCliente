@@ -1,21 +1,21 @@
-version: '3.8'
-services:
-  mysql:
-    image: mysql:8
-    container_name: mysql-gestioncliente
-    environment:
+version: '3.8' # version docker-compose
+services: # servicios que se van a crear
+  mysql: # servicio de base de datos MySQL
+    image: mysql:8 # imagen de MySQL
+    container_name: mysql-gestioncliente # nombre contenedor
+    environment: # variables de entorno
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-    ports:
+    ports: # puertos que se van a exponer
       - "3306:3306"
-    volumes:
+    volumes: # volúmenes para persistencia de datos
       - mysql_data:/var/lib/mysql
 
-  app:
-    build: .
-    container_name: microservicio-gestioncliente
-    depends_on:
-      - mysql
+  app: # servicio de la aplicación Spring Boot
+    build: . # construir la imagen desde el Dockerfile en el directorio actual
+    container_name: microservicio-gestioncliente # nombre contenedor
+    depends_on: # depende del servicio de MySQL
+      - mysql # espera a que MySQL este listo
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
