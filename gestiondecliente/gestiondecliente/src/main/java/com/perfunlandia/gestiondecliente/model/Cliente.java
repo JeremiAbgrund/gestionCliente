@@ -20,17 +20,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "cliente") // Nombre de la tabla en la base de datos
 public class Cliente {
 
-    @Id
+    @Id // clave primaria de la entidad
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
 
-    @Column(nullable = false, length = 50)
-    @NotNull
+    @Column(nullable = false, length = 50) // nunllable es para que no pueda ser nulo a nivel de base de datos
+    @NotNull // not null es para que no se pueda guardar un cliente sin nombre (en java)
     @Size(min = 2, max = 50)
     private String nombre;
 
-    @Column(nullable = false, length = 50)
-    @NotNull
+    @Column(nullable = false, length = 50) // la column no puede ser nula teniendo como tamanio maximo 50 caracteres
+    @NotNull //
     @Size(min = 2, max = 50)
     private String apellido_paterno;
 
