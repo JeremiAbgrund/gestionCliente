@@ -9,6 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class GestiondeclienteApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GestiondeclienteApplication.class, args);
+        SpringApplication.run(GestiondeclienteApplication.class, args); // Inicia la aplicación Spring Boot
     }
 }
