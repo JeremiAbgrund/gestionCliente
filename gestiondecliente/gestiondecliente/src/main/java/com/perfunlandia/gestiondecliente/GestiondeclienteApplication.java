@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.perfunlandia.gestiondecliente")
 @EnableTransactionManagement // Habilita la gestión de transacciones
 @EnableJpaRepositories("com.perfunlandia.gestiondecliente.repository")
 public class GestiondeclienteApplication {

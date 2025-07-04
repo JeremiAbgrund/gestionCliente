@@ -24,7 +24,8 @@ public class DataLoader implements CommandLineRunner {
     private ClienteRepository clienteRepository;
 
     public DataLoader() {
-        log.info("DataLoader constructor llamado");
+        System.out.println("DataLoader constructor llamado");
+        throw new RuntimeException("Forzando error para probar creación del bean");
     }
 
     @Override
