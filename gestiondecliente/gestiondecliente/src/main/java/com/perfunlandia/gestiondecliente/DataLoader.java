@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.perfunlandia.gestiondecliente.model.Cliente;
@@ -11,7 +12,7 @@ import com.perfunlandia.gestiondecliente.repository.ClienteRepository;
 
 import net.datafaker.Faker;
 @SuppressWarnings("deprecation")
-//@Profile("dev")
+@Profile("dev")
 @Component
 public class DataLoader implements CommandLineRunner {
 
