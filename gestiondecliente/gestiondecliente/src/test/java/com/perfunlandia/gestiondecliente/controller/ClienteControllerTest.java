@@ -20,25 +20,25 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest // Carga el contexto de la aplicación para pruebas
+@AutoConfigureMockMvc // Configura MockMvc para pruebas de controladores
 public class ClienteControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc; // Permite realizar peticiones HTTP a los controladores
 
     @MockBean
-    private ClienteService clienteService;
+    private ClienteService clienteService; // Mock del servicio ClienteService
 
     @MockBean
-    private ClienteModelAssembler assembler;
+    private ClienteModelAssembler assembler; // Mock del ensamblador de modelos ClienteModelAssembler
 
-    private Cliente cliente;
-    private EntityModel<Cliente> clienteModel;
+    private Cliente cliente; // Objeto Cliente para pruebas
+    private EntityModel<Cliente> clienteModel; // Modelo de entidad para Cliente
 
     @BeforeEach
-    void setUp() {
-        cliente = new Cliente();
+    void setUp() { // Configuración antes de cada prueba
+        cliente = new Cliente(); // Inicializa un nuevo objeto Cliente
         cliente.setId(1);
         cliente.setNombre("Juan");
         cliente.setApellido_paterno("Pérez");
@@ -49,11 +49,11 @@ public class ClienteControllerTest {
     }
 
     @Test
-    public void testGetAllClientes() throws Exception {
-        when(assembler.toModel(cliente)).thenReturn(clienteModel);
-        when(clienteService.listarClientes()).thenReturn(List.of(cliente));
+    public void testGetAllClientes() throws Exception { // Prueba para obtener todos los clientes
+        when(assembler.toModel(cliente)).thenReturn(clienteModel); // Configura el ensamblador para devolver el modelo de cliente
+        when(clienteService.listarClientes()).thenReturn(List.of(cliente)); // Configura el servicio para devolver una lista con un cliente
 
-        mockMvc.perform(get("/api/clientes"))
+        mockMvc.perform(get("/api/clientes")) // Realiza una petición GET a la ruta /api/clientes
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.clienteList[0].id").value(1))
                 .andExpect(jsonPath("$._embedded.clienteList[0].nombre").value("Juan"))
@@ -64,7 +64,7 @@ public class ClienteControllerTest {
     public void testGetClienteById_NotFound() throws Exception {
         when(clienteService.buscarCliente(999)).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/api/clientes/999"))
+        mockMvc.perform(get("/api/clientes/999")) // Realiza una petición GET a la ruta /api/clientes/999
                 .andExpect(status().isNotFound());
     }
 
@@ -73,7 +73,7 @@ public class ClienteControllerTest {
         when(assembler.toModel(cliente)).thenReturn(clienteModel);
         when(clienteService.buscarCliente(1)).thenReturn(Optional.of(cliente));
 
-        mockMvc.perform(get("/api/clientes/1"))
+        mockMvc.perform(get("/api/clientes/1")) // Realiza una petición GET a la ruta /api/clientes/1
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Juan"))

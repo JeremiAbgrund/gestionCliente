@@ -9,6 +9,34 @@
             "projectName": "gestiondecliente",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Run All Tests",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "gestiondecliente",
+            "args": "test",
+            "vmArgs": "-Dspring.profiles.active=dev",
+            "preLaunchTask": "mvn-test-all"
+        },
+        {
+            "type": "java",
+            "name": "Run Controller Tests",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "gestiondecliente",
+            "args": "test -Dtest=\"com.controller.ClienteControllerTest\""
+        },
+        {
+            "type": "java",
+            "name": "Run Service Tests",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "gestiondecliente",
+            "args": "test -Dtest=\"com.service.ClienteServiceTests\"",
+            "vmArgs": "-Dspring.profiles.active=dev",
+            "preLaunchTask": "mvn-test-service"
         }
     ]
 }

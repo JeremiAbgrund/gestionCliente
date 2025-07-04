@@ -23,12 +23,12 @@ public class DataLoader implements CommandLineRunner { // Clase que carga datos 
     private ClienteRepository clienteRepository; // Repositorio para acceder a los datos de Cliente
 
     public DataLoader() {
-        System.out.println("DataLoader constructor llamado");
-        // throw new RuntimeException("Forzando error para probar creación del bean");
+        System.out.println("DataLoader constructor llamado"); // Constructor de DataLoader
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception { // Método que se ejecuta al iniciar la aplicación
+        // Verifica si el repositorio de clientes está vacío antes de cargar datos
         log.info("==== INICIANDO CARGA DE DATOS FAKER ====");
         Faker faker = new Faker(new Locale("es"));
 
@@ -51,6 +51,6 @@ public class DataLoader implements CommandLineRunner { // Clase que carga datos 
                 log.info("Error al crear cliente: {} - {}", cliente.getEmail(), e.getMessage()); // Registra el error si ocurre
             }
         }
-        log.info("==== FIN DE CARGA DE DATOS FAKER ====");
+        log.info("==== FIN DE CARGA DE DATOS FAKER ===="); 
     }
 } 

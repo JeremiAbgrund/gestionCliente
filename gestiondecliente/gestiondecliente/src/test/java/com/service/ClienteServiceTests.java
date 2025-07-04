@@ -33,6 +33,7 @@ class ClienteServiceTests {
 
     @Test
     void listarClientes_retornaLista() {
+        // Prueba que listarClientes retorna una lista de clientes correctamente
         // Arrange
         Cliente cliente1 = new Cliente();
         cliente1.setId(1);
@@ -59,6 +60,7 @@ class ClienteServiceTests {
 
     @Test
     void buscarCliente_existente_devuelveCliente() {
+        // Prueba que buscarCliente retorna un cliente existente correctamente
         // Arrange
         Cliente cliente = new Cliente();
         cliente.setId(1);
@@ -76,6 +78,7 @@ class ClienteServiceTests {
 
     @Test
     void buscarCliente_inexistente_devuelveVacio() {
+        // Prueba que buscarCliente retorna vacío si el cliente no existe
         // Arrange
         when(clienteRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -89,6 +92,7 @@ class ClienteServiceTests {
 
     @Test
     void agregarCliente_exitoso_devuelveMensajeCorrecto() {
+        // Prueba que agregarCliente retorna mensaje de éxito al agregar un cliente
         // Arrange
         Cliente clienteNuevo = new Cliente();
         clienteNuevo.setNombre("Nuevo Cliente");
@@ -105,6 +109,7 @@ class ClienteServiceTests {
 
     @Test
     void actualizarCliente_existente_devuelveMensajeCorrecto() {
+        // Prueba que actualizarCliente retorna mensaje de éxito al actualizar un cliente existente
         // Arrange
         Cliente clienteExistente = new Cliente();
         clienteExistente.setId(1);
@@ -127,6 +132,7 @@ class ClienteServiceTests {
 
     @Test
     void actualizarCliente_inexistente_devuelveMensajeError() {
+        // Prueba que actualizarCliente retorna mensaje de error si el cliente no existe
         // Arrange
         Cliente clienteActualizado = new Cliente();
         clienteActualizado.setNombre("Cliente Actualizado");
@@ -144,6 +150,7 @@ class ClienteServiceTests {
 
     @Test
     void eliminarCliente_existente_devuelveMensajeCorrecto() {
+        // Prueba que eliminarCliente retorna mensaje de éxito al eliminar un cliente existente
         // Arrange
         Cliente cliente = new Cliente();
         cliente.setId(1);
@@ -163,6 +170,7 @@ class ClienteServiceTests {
 
     @Test
     void eliminarCliente_inexistente_devuelveMensajeError() {
+        // Prueba que eliminarCliente retorna mensaje de error si el cliente no existe
         // Arrange
         when(clienteRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -174,4 +182,4 @@ class ClienteServiceTests {
         verify(clienteRepository, times(1)).findById(999);
         verify(clienteRepository, never()).deleteById(anyInt());
     }
-} 
+}
