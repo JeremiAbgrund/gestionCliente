@@ -17,6 +17,7 @@ services: # servicios que se van a crear
     depends_on: # depende del servicio de MySQL
       - mysql # espera a que MySQL este listo
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
