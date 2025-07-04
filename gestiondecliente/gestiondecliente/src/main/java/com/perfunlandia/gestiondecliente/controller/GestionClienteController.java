@@ -3,6 +3,11 @@ package com.perfunlandia.gestiondecliente.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.perfunlandia.gestiondecliente.assembler.ClienteModelAssembler;
 import com.perfunlandia.gestiondecliente.model.Cliente;
 import com.perfunlandia.gestiondecliente.services.ClienteService;
 
@@ -23,20 +30,28 @@ public class GestionClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ClienteModelAssembler assembler;
+
     // Obtener todos los clientes
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
-        List<Cliente> clientes = clienteService.listarClientes();
-        // 200 OK: Siempre devuelve 200, aunque la lista esté vacía
-        return ResponseEntity.ok(clientes);
+    public CollectionModel<EntityModel<Cliente>> listarClientes() {
+        List<EntityModel<Cliente>> modelos = clienteService.listarClientes().stream()
+            .map(assembler::toModel)
+            .toList();
+        return CollectionModel.of(
+            modelos,
+            linkTo(methodOn(GestionClienteController.class).listarClientes()).withSelfRel(),
+            linkTo(methodOn(GestionClienteController.class).agregarCliente(null)).withRel("crear") 
+        );
     }
 
     // Obtener cliente por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Integer id) {
-        return clienteService.buscarCliente(id)
-                .map(ResponseEntity::ok) // 200 OK: Si el cliente existe, lo devuelve(como optional)
-                .orElse(ResponseEntity.notFound().build()); // 404 Not Found: Si no existe, devuelve 404
+    public EntityModel<Cliente> obtenerClientePorId(@PathVariable Integer id) {
+        Cliente cliente = clienteService.buscarCliente(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return assembler.toModel(cliente);
     }
 
     // Agregar nuevo cliente
