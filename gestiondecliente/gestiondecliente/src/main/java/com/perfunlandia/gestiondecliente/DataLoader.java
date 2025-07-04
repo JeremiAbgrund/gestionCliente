@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.perfunlandia.gestiondecliente.model.Cliente;
@@ -14,7 +13,7 @@ import com.perfunlandia.gestiondecliente.repository.ClienteRepository;
 
 import net.datafaker.Faker;
 @SuppressWarnings("deprecation")
-@Profile("dev")
+//@Profile("dev")
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -25,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
 
     public DataLoader() {
         System.out.println("DataLoader constructor llamado");
-        throw new RuntimeException("Forzando error para probar creación del bean");
+        // throw new RuntimeException("Forzando error para probar creación del bean");
     }
 
     @Override
