@@ -20,6 +20,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("==== INICIANDO CARGA DE DATOS FAKER ====");
         Faker faker = new Faker(new Locale("es"));
 
         // Generar 20 clientes de prueba
@@ -33,10 +34,11 @@ public class DataLoader implements CommandLineRunner {
             
             try {
                 clienteRepository.save(cliente);
+                System.out.println("Cliente creado: " + cliente.getEmail());
             } catch (Exception e) {
-                // Si hay un error (por ejemplo, email duplicado), continuamos con el siguiente
-                System.out.println("Error al guardar cliente: " + e.getMessage());
+                System.out.println("Error al crear cliente: " + cliente.getEmail() + " - " + e.getMessage());
             }
         }
+        System.out.println("==== FIN DE CARGA DE DATOS FAKER ====");
     }
 } 
