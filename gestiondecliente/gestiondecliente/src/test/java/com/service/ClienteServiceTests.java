@@ -28,7 +28,7 @@ class ClienteServiceTests {
     @Mock
     private ClienteRepository clienteRepository;
 
-    @InjectMocks //Inyecta los mocks en el servicio
+    @InjectMocks
     private ClienteService clienteService;
 
     @Test
@@ -44,8 +44,8 @@ class ClienteServiceTests {
         cliente2.setNombre("María");
         cliente2.setEmail("maria@email.com");
         
-        List<Cliente> clientes = List.of(cliente1, cliente2); //Lista de clientes
-        when(clienteRepository.findAll()).thenReturn(clientes); //Cuando se llame a findAll, se devolverá la lista de clientes
+        List<Cliente> clientes = List.of(cliente1, cliente2);
+        when(clienteRepository.findAll()).thenReturn(clientes);
 
         // Act
         List<Cliente> resultado = clienteService.listarClientes();

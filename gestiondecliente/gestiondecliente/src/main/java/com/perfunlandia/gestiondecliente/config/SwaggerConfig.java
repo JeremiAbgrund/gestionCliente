@@ -10,7 +10,7 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 
-//http://localhost:8080/swagger-ui/index.html 
+//http://34.230.165.193:8080/swagger-ui/index.html 
 
 @Configuration
 public class SwaggerConfig {

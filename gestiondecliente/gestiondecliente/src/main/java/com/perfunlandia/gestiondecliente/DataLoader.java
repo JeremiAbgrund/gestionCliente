@@ -15,12 +15,12 @@ import net.datafaker.Faker;
 @SuppressWarnings("deprecation")
 //@Profile("dev")
 @Component
-public class DataLoader implements CommandLineRunner {
+public class DataLoader implements CommandLineRunner { // Clase que carga datos de prueba al iniciar la aplicación
 
-    private static final Logger log = LoggerFactory.getLogger(DataLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(DataLoader.class); // Logger para registrar información
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteRepository clienteRepository; // Repositorio para acceder a los datos de Cliente
 
     public DataLoader() {
         System.out.println("DataLoader constructor llamado");
@@ -34,18 +34,21 @@ public class DataLoader implements CommandLineRunner {
 
         // Generar 20 clientes de prueba
         for (int i = 0; i < 20; i++) {
-            Cliente cliente = new Cliente();
+            // Crear un nuevo cliente con datos falsos
+            // Faker para generar datos aleatorios
+            Cliente cliente = new Cliente();    
             cliente.setNombre(faker.name().firstName());
             cliente.setApellido_paterno(faker.name().lastName());
             cliente.setApellido_materno(faker.name().lastName());
             cliente.setTelefono(faker.phoneNumber().cellPhone());
             cliente.setEmail(faker.internet().emailAddress());
             
+            
             try {
                 clienteRepository.save(cliente);
-                log.info("Cliente creado: {}", cliente.getEmail());
+                log.info("Cliente creado: {}", cliente.getEmail()); // Registra el cliente creado
             } catch (Exception e) {
-                log.info("Error al crear cliente: {} - {}", cliente.getEmail(), e.getMessage());
+                log.info("Error al crear cliente: {} - {}", cliente.getEmail(), e.getMessage()); // Registra el error si ocurre
             }
         }
         log.info("==== FIN DE CARGA DE DATOS FAKER ====");
